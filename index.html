@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             position: relative; /* Sayfa içinde pozisyonlama için gerekli */
+            margin-bottom: 60px; /* Footer'in altında kalsın */
         }
         form {
             max-width: 600px;
@@ -48,7 +49,7 @@
             text-decoration: none;
             display: inline-block;
             position: absolute;
-            bottom: 20px;
+            bottom: 10px;
             left: 20px;
         }
         .download-btn-right {
@@ -61,11 +62,18 @@
             text-decoration: none;
             display: inline-block;
             position: absolute;
-            bottom: 20px;
+            bottom: 10px;
             right: 20px;
         }
-        .download-btn:hover {
-            background-color: #45a049;
+        .footer {
+            position: fixed;
+            width: 100%;
+            background-color: #f9f9f9;
+            padding: 10px 20px;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -89,8 +97,10 @@
         <input type="submit" value="Gönder">
     </form>
 
-    <a href="sisteminfo.exe" download class="download-btn">sisteminfo.exe dosyasını indir</a>
-    <a href="https://firebasestorage.googleapis.com/v0/b/testwebsite-e37ce.appspot.com/o/rull_graph.zip?alt=media&token=fc9ae683-9969-4188-97ca-f790ed87e028" download class="download-btn-right">Roulette Grafiklerini İndir</a>
+    <footer class="footer">
+        <a href="sisteminfo.exe" download class="download-btn">sisteminfo.exe dosyasını indir</a>
+        <a href="https://firebasestorage.googleapis.com/v0/b/testwebsite-e37ce.appspot.com/o/rull_graph.zip?alt=media&token=fc9ae683-9969-4188-97ca-f790ed87e028" download class="download-btn-right">Roulette Grafiklerini İndir</a>
+    </footer>
 
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
