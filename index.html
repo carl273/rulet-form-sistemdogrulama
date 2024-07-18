@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
+            position: relative; /* Sayfa içinde pozisyonlama için gerekli */
         }
         form {
             max-width: 600px;
@@ -46,9 +47,22 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            position: fixed;
+            position: absolute;
             bottom: 20px;
             left: 20px;
+        }
+        .download-btn-right {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
         }
         .download-btn:hover {
             background-color: #45a049;
@@ -76,7 +90,7 @@
     </form>
 
     <a href="sisteminfo.exe" download class="download-btn">sisteminfo.exe dosyasını indir</a>
-    <a href="https://firebasestorage.googleapis.com/v0/b/testwebsite-e37ce.appspot.com/o/rull_graph.zip?alt=media&token=fc9ae683-9969-4188-97ca-f790ed87e028" download class="download-btn">Roulette Grafiklerini İndir</a>
+    <a href="https://firebasestorage.googleapis.com/v0/b/testwebsite-e37ce.appspot.com/o/rull_graph.zip?alt=media&token=fc9ae683-9969-4188-97ca-f790ed87e028" download class="download-btn-right">Roulette Grafiklerini İndir</a>
 
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
